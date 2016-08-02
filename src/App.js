@@ -1,18 +1,12 @@
 import React from 'react';
-import axios from 'axios';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import CircularProgress from 'material-ui/CircularProgress';
-
+import getUserInfo from './gitSearch'
 class App extends React.Component {
   getChildContext() {
     return {muiTheme: getMuiTheme()};
   }
-  getUserInfo(){
-    return axios.get('https://api.github.com/users/zhangtong1994')
-           .then((res) =>(
-             {gitInfo:res.data}
-           ))
-  }
+
   constructor(){
     super();
     this.state ={
@@ -21,8 +15,7 @@ class App extends React.Component {
     }
   }
   componentDidMount(){
-   this.getUserInfo().then((data) => {
-     console.log(data.gitInfo)
+    getUserInfo().then((data) => {
      this.setState({
        info:data.gitInfo,
        wait:false
